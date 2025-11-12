@@ -2,40 +2,50 @@
 
 ## Setup
 
-First we create the virtual env
+First create the virtual env.
 
 ``` shell
 py -m venv .venv
 pip install -r requirements.txt
 ```
 
-Now we clone the repo and generate the log file.
+Then clone the repo and generate the log file. This step can also be executed directly from  ```assignment.ipynb```
 
 ```shell
 # Clone the transformers repository and checkout a specific version
 git clone https://github.com/huggingface/transformers.git
-
-cd transformers && git checkout v4.57.0
-
-cd transformers && git tag --points-at HEAD
+cd transformers
+git checkout v4.57.0
+git tag --points-at HEAD
 
 # Get git log of changes made after January 1, 2023
-cd transformers && git log --name-only --pretty=format:"%ad - %an: %s" --after="2023-01-01" > ../git_log_output.txt
+git log --name-only --pretty=format:"%ad - %an: %s" --after="2023-01-01" > ../git_log_output.txt
 ```
 
 ## Task 1
 
-**Why Did Defects Drop Sharply in October 2025?**
+**Analyze these messages to detect the presence of specific keywords of your choice related to defect fixes.**
+
+Our method for finding defective hotspots consist of checking for the substrings *fix*, *bug*, *error*, *issue*, *patch* in the commit message. Our check is case insensitive, and is not restricted to full words so a message which contains *Fix:* or *patched* would also count as defect.
+
+**Calculate and plot the total number of defects per month. Why do you think the number of defects dropped sharply in October 2025? Why did defects drop sharply in October 2025?**
+
+TODO Insert plot
 
 The repository is checked out at release tag v4.57.0, whose latest commit in October 3rd. We can see that in October 2025 there is only one commit. This explains why there are no defects in October 2025.
+
+**Calculate and plot the number of defects per month for the two files with the highest number of defects.**
+
+TODO Insert plot
 
 **In which month were the most defects introduced? How would you explain it? Manually examine the repository for that month (e.g., change logs, releases, commit messages) and come up with a hypothesis.**
 
 March 2025 recorded the highest number of defect fixes (24 commits).
 Historical data shows that March 2024 had an unusually high number of new features, many of which caused integration conflicts and latent bugs that reappeared a year later.
-Logs — March 2025 Defect Fixes
 
 ```log
+MARCH 2025 DEFECT COMMITS
+
 Mon Mar 31 23:31:24 2025 +0800 - cyyever: Fix more inefficient PT operations (#37060)
 Mon Mar 31 17:02:49 2025 +0800 - huismiling: [MLU] Fix FA2 check error, remove deepspeed-mlu deps. (#36159)
 Fri Mar 28 18:00:35 2025 +0100 - Cyril Vallez: Fix AttentionInterface following feedback (#37010)
@@ -69,9 +79,7 @@ Significant feature work and refactoring occurred between these two releases. Th
 
 **What are the limitations of this method for finding defective hotspots?**
 
-Our method for finding defective hotspots consist of checking for the substrings *fix*, *bug*, *error*, *issue*, *patch* in the commit message. Our check is case insensitive, and is not restricted to full words so a message which contains *Fix:* or *patched* would also count as defect.
-
-While this method is very inclusive and flags many commits as defects, the main limitation is that there may be false positives. As we check for substrings, there may be messages that are flagged because of unintended words like *fixation* for example. Also, a commit may not actualy fix a bug, but includes in its message any of our selected words.
+While our method is very inclusive and flags many commits as defects, the main limitation is that there may be false positives. As we check for substrings, there may be messages that are flagged because of unintended words like *fixation* for example. Also, a commit may not actualy fix a bug, but includes in its message any of our selected words.
 
 ## Task 2
 
