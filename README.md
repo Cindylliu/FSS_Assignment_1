@@ -1,10 +1,14 @@
-**Setup**
+# Defect Analysis – Hugging Face Transformers
+
+## 🧩 Setup
+
+```python
 import os
 
-Change directory to your local transformers repository
-Update this path to match your own setup
+# Change directory to your local transformers repository
+# Update this path to match your own setup
 os.chdir("/Users/xxxx/Desktop/HuggingFace/transformers")
-Make sure your local environment points to a valid clone of the Transformers repository before running the analysis scripts.
+
 
 **Why Did Defects Drop Sharply in October 2025?**
 
