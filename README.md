@@ -1,4 +1,4 @@
-# Defect Analysis – Hugging Face Transformers
+**# Defect Analysis – Hugging Face Transformers**
 
 ## 🧩 Setup
 
@@ -9,11 +9,15 @@ import os
 # Update this path to match your own setup
 os.chdir("/Users/xxxx/Desktop/HuggingFace/transformers")
 
+# Make sure your local environment points to a valid clone of the Transformers repository before running the analysis scripts.
+```
 
 **Why Did Defects Drop Sharply in October 2025?**
 
-In October 2025, the team released a minor update that primarily focused on model improvements rather than major code changes. Only a single new feature was introduced, which was described as “stable,” suggesting it did not introduce many new defects.
-Also, it’s possible that overall development activity was lower during October—perhaps due to holidays, vacations, or resource reallocation to other projects. This reduction in active development and commits would naturally result in fewer reported defects for the month.
+In October 2025, the team released a minor update that primarily focused on model improvements rather than major code changes.
+Only a single new feature was introduced, described as “stable,” which likely did not introduce many new defects.
+It’s also possible that overall development activity was lower during this period — perhaps due to holidays, vacations, or resource reallocation to other projects.
+This reduction in active development and commits would naturally result in fewer reported defects for the month.
 
 
 **In which month were the most defects introduced? How would you explain it? Manually examine the repository for that month (e.g., change logs, releases, commit messages) and come up with a hypothesis.**
@@ -21,7 +25,7 @@ Also, it’s possible that overall development activity was lower during October
 March 2025 recorded the highest number of defect fixes (24 commits).
 Historical data shows that March 2024 had an unusually high number of new features, many of which caused integration conflicts and latent bugs that reappeared a year later.
 Logs — March 2025 Defect Fixes
-<details> <summary>Click to expand commit list</summary>
+```python
 Mon Mar 31 23:31:24 2025 +0800 - cyyever: Fix more inefficient PT operations (#37060)
 Mon Mar 31 17:02:49 2025 +0800 - huismiling: [MLU] Fix FA2 check error, remove deepspeed-mlu deps. (#36159)
 Fri Mar 28 18:00:35 2025 +0100 - Cyril Vallez: Fix AttentionInterface following feedback (#37010)
@@ -46,7 +50,7 @@ Mon Mar 3 18:35:37 2025 +0100 - Marc Sun: fix torch_dtype, contiguous, and load_
 Mon Mar 3 09:05:58 2025 -0500 - Zach Mueller: Fix loading zero3 weights (#36455)
 Sun Mar 2 07:33:36 2025 +0000 - hlky: Fix _load_state_dict_into_meta_model with device_map=None (#36488)
 Sat Mar 1 07:12:17 2025 +0100 - Marc Sun: Fix couple of issues from #36335 (#36453)
-</details>
+```
 
 **Hypothesis**
 Based on these commit logs, the root cause of the spike in defects is not immediately clear without additional project context. However, cross-referencing the Hugging Face Transformers release history (PyPI: https://pypi.org/project/transformers/4.49.0/#history) provides useful insight:
