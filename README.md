@@ -1,31 +1,41 @@
-**# Defect Analysis – Hugging Face Transformers**
+# Defect Analysis – Hugging Face Transformers
 
-## 🧩 Setup
+## Setup
 
-```python
-import os
+First we create the virtual env
 
-# Change directory to your local transformers repository
-# Update this path to match your own setup
-os.chdir("/Users/xxxx/Desktop/HuggingFace/transformers")
-
-# Make sure your local environment points to a valid clone of the Transformers repository before running the analysis scripts.
+``` shell
+py -m venv .venv
+pip install -r requirements.txt
 ```
+
+Now we clone the repo and generate the log file.
+
+```shell
+# Clone the transformers repository and checkout a specific version
+git clone https://github.com/huggingface/transformers.git
+
+cd transformers && git checkout v4.57.0
+
+cd transformers && git tag --points-at HEAD
+
+# Get git log of changes made after January 1, 2023
+cd transformers && git log --name-only --pretty=format:"%ad - %an: %s" --after="2023-01-01" > ../git_log_output.txt
+```
+
+## Task 1
 
 **Why Did Defects Drop Sharply in October 2025?**
 
-In October 2025, the team released a minor update that primarily focused on model improvements rather than major code changes.
-Only a single new feature was introduced, described as “stable,” which likely did not introduce many new defects.
-It’s also possible that overall development activity was lower during this period — perhaps due to holidays, vacations, or resource reallocation to other projects.
-This reduction in active development and commits would naturally result in fewer reported defects for the month.
-
+The repository is checked out at release tag v4.57.0, whose latest commit in October 3rd. We can see that in October 2025 there is only one commit. This explains why there are no defects in October 2025.
 
 **In which month were the most defects introduced? How would you explain it? Manually examine the repository for that month (e.g., change logs, releases, commit messages) and come up with a hypothesis.**
 
 March 2025 recorded the highest number of defect fixes (24 commits).
 Historical data shows that March 2024 had an unusually high number of new features, many of which caused integration conflicts and latent bugs that reappeared a year later.
 Logs — March 2025 Defect Fixes
-```python
+
+```log
 Mon Mar 31 23:31:24 2025 +0800 - cyyever: Fix more inefficient PT operations (#37060)
 Mon Mar 31 17:02:49 2025 +0800 - huismiling: [MLU] Fix FA2 check error, remove deepspeed-mlu deps. (#36159)
 Fri Mar 28 18:00:35 2025 +0100 - Cyril Vallez: Fix AttentionInterface following feedback (#37010)
@@ -52,10 +62,25 @@ Sun Mar 2 07:33:36 2025 +0000 - hlky: Fix _load_state_dict_into_meta_model with 
 Sat Mar 1 07:12:17 2025 +0100 - Marc Sun: Fix couple of issues from #36335 (#36453)
 ```
 
-**Hypothesis**
 Based on these commit logs, the root cause of the spike in defects is not immediately clear without additional project context. However, cross-referencing the Hugging Face Transformers release history (PyPI: https://pypi.org/project/transformers/4.49.0/#history) provides useful insight:
 v4.49.0 was released on February 17, 2025
 v4.50.0 was released on March 21, 2025
 Significant feature work and refactoring occurred between these two releases. The intense development period in late February and March likely introduced technical debt, which manifested as bugs soon after. Notably, 11 of the 24 fixes occurred after the v4.50.0 release, suggesting that the new release introduced regressions and integration issues that required immediate remediation. We assume thus the spike in March 2025 defects was primarily driven by heavy integration activity and major feature updates associated with the 4.50.0 release, leading to regressions and unstable components that required urgent post-release fixes.
 
-                    
+**What are the limitations of this method for finding defective hotspots?**
+
+Our method for finding defective hotspots consist of checking for the substrings *fix*, *bug*, *error*, *issue*, *patch* in the commit message. Our check is case insensitive, and is not restricted to full words so a message which contains *Fix:* or *patched* would also count as defect.
+
+While this method is very inclusive and flags many commits as defects, the main limitation is that there may be false positives. As we check for substrings, there may be messages that are flagged because of unintended words like *fixation* for example. Also, a commit may not actualy fix a bug, but includes in its message any of our selected words.
+
+## Task 2
+
+TBD
+
+## Task 3
+
+TBD
+
+## Declaration of AI use
+
+## References
