@@ -24,21 +24,21 @@ git log --name-only --pretty=format:"%ad - %an: %s" --after="2023-01-01" > ../gi
 
 ## Task 1
 
-**Analyze these messages to detect the presence of specific keywords of your choice related to defect fixes.**
+### Analyze these messages to detect the presence of specific keywords of your choice related to defect fixes.
 
 Our method for finding defective hotspots consist of checking for the substrings *fix*, *bug*, *error*, *issue*, *patch* in the commit message. Our check is case insensitive, and is not restricted to full words so a message which contains *Fix:* or *patched* would also count as defect.
 
-**Calculate and plot the total number of defects per month. Why do you think the number of defects dropped sharply in October 2025? Why did defects drop sharply in October 2025?**
+### Calculate and plot the total number of defects per month. Why do you think the number of defects dropped sharply in October 2025? Why did defects drop sharply in October 2025?
 
 TODO Insert plot
 
 The repository is checked out at release tag v4.57.0, whose latest commit in October 3rd. We can see that in October 2025 there is only one commit. This explains why there are no defects in October 2025.
 
-**Calculate and plot the number of defects per month for the two files with the highest number of defects.**
+### Calculate and plot the number of defects per month for the two files with the highest number of defects.
 
 TODO Insert plot
 
-**In which month were the most defects introduced? How would you explain it? Manually examine the repository for that month (e.g., change logs, releases, commit messages) and come up with a hypothesis.**
+### In which month were the most defects introduced? How would you explain it? Manually examine the repository for that month (e.g., change logs, releases, commit messages) and come up with a hypothesis.
 
 March 2025 recorded the highest number of defect fixes (24 commits).
 Historical data shows that March 2024 had an unusually high number of new features, many of which caused integration conflicts and latent bugs that reappeared a year later.
@@ -77,11 +77,41 @@ v4.49.0 was released on February 17, 2025
 v4.50.0 was released on March 21, 2025
 Significant feature work and refactoring occurred between these two releases. The intense development period in late February and March likely introduced technical debt, which manifested as bugs soon after. Notably, 11 of the 24 fixes occurred after the v4.50.0 release, suggesting that the new release introduced regressions and integration issues that required immediate remediation. We assume thus the spike in March 2025 defects was primarily driven by heavy integration activity and major feature updates associated with the 4.50.0 release, leading to regressions and unstable components that required urgent post-release fixes.
 
-**What are the limitations of this method for finding defective hotspots?**
+### What are the limitations of this method for finding defective hotspots?
 
 While our method is very inclusive and flags many commits as defects, the main limitation is that there may be false positives. As we check for substrings, there may be messages that are flagged because of unintended words like *fixation* for example. Also, a commit may not actualy fix a bug, but includes in its message any of our selected words.
 
 ## Task 2
+
+### Select two complexity metrics of your choice.
+
+We have selected Lines of Code (LOC) and Number of Code Changes (NCC) as our complexity metrics, as we felt they represent very different things. We also considered Cyclomatic Complexity, but most of the libraries calculate by code block, so to obtain a single number by file we would have to aggregate it. Considering this, we felt that LOC is simpler to understand and is a better gauge for the complexity of a file.
+
+### Calculate LOC and NCC of all .py files.
+
+ For calculating LOC we used the library [pygount](https://pypi.org/project/pygount/) which calculates the number of source lines of code, excluding blank lines and comments. For the NCC we considered **all commits**, not only defect commits, between 2023-01-01 up until release v4.57.0.
+
+### Visualize the complexity hotspots.
+
+We used 2 bar charts to view the top 25 most complex files by LOC and by NCC.
+
+TODO Add 2 bar charts
+
+We also used a scatterplot to visualize both metrics at the same time, combining the previous top 25s. In the scatterplot there are 41 files, as 9 files appear in both tops. Additionally, the points are color coded by their type, based on their location. We distinguish between source files which are in src/transformers (src folder solely contains the folder transformers), test files which are in test/, and all other files.
+
+TODO Add scatterplot
+
+### What can you say abou the correlation between LOC and NCC?
+
+If we use the scatterplot visualization, this time with all the files in the repository, we can see that most files are not complex and are in the same area. There is only a handful of files with extreme LOC and NCC. From this overview we can not appreciate any correlation. Notably, there are many files with 0 NCC, regardless of their LOC.
+
+TODO Add the second scatterplot
+
+If we leave out the most complex files, and zoom in where the majority of files (under 1400 LOC and 100 NCC) we can still see points all over the place. We can not still appreciate any correlation.
+
+TODO Add the third scatterplot
+
+### "Files with higher complexity tend to be more defective"
 
 TBD
 
@@ -90,5 +120,3 @@ TBD
 TBD
 
 ## Declaration of AI use
-
-## References
