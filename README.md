@@ -4,12 +4,12 @@
 
 First create the virtual env.
 
-``` shell
+```shell
 py -m venv .venv
 pip install -r requirements.txt
 ```
 
-Then clone the repo and generate the log file. This step can also be executed directly from  ```assignment.ipynb```
+Then clone the repo and generate the log file. This step can also be executed directly from `assignment.ipynb`
 
 ```shell
 # Clone the transformers repository and checkout a specific version
@@ -26,7 +26,7 @@ git log --name-only --pretty=format:"%ad - %an: %s" --after="2023-01-01" > ../gi
 
 ### Analyze these messages to detect the presence of specific keywords of your choice related to defect fixes
 
-Our method for finding defective hotspots consist of checking for the substrings *fix*, *bug*, *error*, *issue*, *patch* in the commit message. Our check is case insensitive, and is not restricted to full words so a message which contains *Fix:* or *patched* would also count as defect.
+Our method for finding defective hotspots consist of checking for the substrings _fix_, _bug_, _error_, _issue_, _patch_ in the commit message. Our check is case insensitive, and is not restricted to full words so a message which contains _Fix:_ or _patched_ would also count as defect.
 
 ### Calculate and plot the total number of defects per month. Why do you think the number of defects dropped sharply in October 2025? Why did defects drop sharply in October 2025?
 
@@ -79,7 +79,7 @@ Significant feature work and refactoring occurred between these two releases. Th
 
 ### What are the limitations of this method for finding defective hotspots?
 
-While our method is very inclusive and flags many commits as defects, the main limitation is that there may be false positives. As we check for substrings, there may be messages that are flagged because of unintended words like *fixation* for example. Also, a commit may not actualy fix a bug, but includes in its message any of our selected words.
+While our method is very inclusive and flags many commits as defects, the main limitation is that there may be false positives. As we check for substrings, there may be messages that are flagged because of unintended words like _fixation_ for example. Also, a commit may not actualy fix a bug, but includes in its message any of our selected words.
 
 ## Task 2
 
@@ -89,7 +89,7 @@ We have selected Lines of Code (LOC) and Number of Code Changes (NCC) as our com
 
 ### Calculate LOC and NCC of all .py files
 
- For calculating LOC we used the library [pygount](https://pypi.org/project/pygount/) which calculates the number of source lines of code, excluding blank lines and comments. For the NCC we considered **all commits**, not only defect commits, between 2023-01-01 up until release v4.57.0.
+For calculating LOC we used the library [pygount](https://pypi.org/project/pygount/) which calculates the number of source lines of code, excluding blank lines and comments. For the NCC we considered **all commits**, not only defect commits, between 2023-01-01 up until release v4.57.0.
 
 ### Visualize the complexity hotspots
 
@@ -120,7 +120,51 @@ For judging this claim we will consider only LOC, as NCC and number of defects a
 
 ## Task 3
 
-TBD
+### Calculate the logical coupling for each file pair in the repository
+
+In order to solve this task, I've created an object to represent the `Logical Coupling` as a structured way to encapsulate all the data and behaviour related to calculating and visualizing logical coupling between files.
+
+This design makes the code reusable and easier to maintain, since the logical coupling logic isn't scattered accross the program, and it can be instantiated in multiple scenarios (i.e: without including the test files).
+
+The `__init__.py` file in the transformers package defines a dictionary called `_import_structure`, which specifies the base objects and modules that are exposed by the package. It defines which base objects are exposed by the package.
+
+The `dummy_pt_objects.py` file, on the other hand, defines the objects that `_import_structure` references.
+
+![Top 10 Most logically coupled file pairs](./images/task3_1.png)
+
+### Consider only file pairs where the one file is a Python test file
+
+### How would you explain this type of coupling?
+
+This type of logical coupling reflects the relationship between tests and the code they verify. When a non-test file changes, developers often update the corresponding test to reflect the changes. The test is coupled to the implementation it verifies.
+
+### Is it a code smell that requires attention and signals potential refactoring opportunities or is it something different?
+
+This is not a code smell. As shown in the figure, the top 10 most logically coupled pairs include a test file and the code it verifies. This indeed shows the dependency between tests and the functionality they cover. It indicates **actively maintainance of the tests** rather than a design problem.
+
+![Top 10 Most logically coupled file pairs (test files)](./images/task3_2.png)
+
+### Discuss at least three (3) methods for selecting the most “related” test file given a (non-test) .py file
+
+- ### Method 1: Import Analysis
+
+The first method identifies the most related test files through the analysis of the file's imports. In this approach, all test files in the project are inspected to determine which production modules they reference through their import statements. Because unit tests import the functions, classes or modules aimed to verify, is possible to track from a given source file which test file is meant to cover.
+
+- ### Method 2: Files Coupling
+
+This second method, instead relies on logical coupling between a test file and a non-test file exactly as done in the past section of the third exercise. From the Git commit log, it is possible to count how many times both a test and a non-test file have been modified together. For a input `.py` file, the most related file is therefore the one with the highest co-change count.
+
+- ### Method 3: Semantic Similarity
+
+This third method uses natural language similarity between the implementation file and test file names, class name or identifiers. Instead of relying on imports or commit history, this method compares natural-language information extracted from filenames, class names. The intuition is that normally test files often contain naming patterns derived from the modules they test such as: `test_example.py` corresponds to the production module `example.py`.
+
+### Select two of the three test placement methods you proposed above and implement them in Python
+
+### Where would the two methods place automatically generated tests for src/transformers/generation/utils.py?
+
+Both methods would place the automatically generated test for `src/transformers/generation/utils.py` at `tests/generation/test_utils.py`.
+
+This is because both the directory mirroring method and the filename-based method generate a test file in the `tests/` directory that mirrors the source file’s path and prefixes the filename with `test_`
 
 ## Declaration of AI use
 
