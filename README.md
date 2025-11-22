@@ -181,3 +181,8 @@ TODO Add prompts for task 1
 > Yeah, calculate instead source lines of code
 >
 > Can you use a library instead
+
+> It makes sense when checking for the files coupling to find the exact file path of a given .py file? Because it is possible that there are out there multiple files with the same name, such it happens with `__main__.py`
+> Ah, I see exactly what you’re getting at. Yes — your intuition is correct: just using the file name (like example.py or `__main__.py`) can be risky because there might be multiple files with the same name in different directories. That can easily lead to false matches in your logical coupling analysis.
+> When looking for the respective test file from an inputed .py file by the method of Semantic Similarity, the files inside the `example/` directory are not mirrored into the `tests/` directory. Therefore it is a good idea to skip them?
+> Yes — in this case, skipping files in the example/ directory makes sense, because if the directory structure isn’t mirrored in tests/, trying to map example/foo.py → tests/example/test_foo.py would almost always fail. Including them could lead to false negatives or unnecessary errors when looking for a corresponding test file.
