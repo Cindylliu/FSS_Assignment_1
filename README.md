@@ -170,7 +170,8 @@ This is because both the directory mirroring method and the filename-based metho
 
 Generative AI was used to assist the coding of this assignment.
 
-TODO Add prompts for task 1
+> At first, I was not knowledgeable enough to create the bar plot by myself, so I went to the Matplotlib documentation for bar plot generation (https://matplotlib.org/stable/gallery/lines_bars_and_markers/bar_colors.html#sphx-glr-gallery-lines-bars-and-markers-bar-colors-py), but the plot was not optimal, so I initiated the following conversation with ChatGPT: Given the following code, generate me a colorful and clearer visualization. I used ChatGPT for both tasks 1.3 and 1.4, both for visualization generation and refactorization.
+> I also used Generative AI to clean my code. Initially, I wrote a big function with many implementations in it, with issues such as code duplication and poor code design. As I was writing and adding the code based on the exercises, a lot of code piled up to the point where it was quite complicated to continue without touching other implementations within the same function. To better solve the issue of coupling, I asked ChatGPT to help me better organize the function, so I initiated the following conversation: Structure and clean the following code, xxx. ChatGPT then reorganized the code into multiple small functions, allowing me to implement and reuse different parts without complex interactions. I then continued based on the structure and added other functions.
 
 > I am analyzing a code repository and I have the git traces. I have a metric for the complexity of each file. Give me examples of visualizations which show which parts of the code base are more complex?
 
