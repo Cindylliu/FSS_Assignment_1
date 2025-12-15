@@ -1,4 +1,4 @@
-# Defect Analysis – Hugging Face Transformers
+# Software Evolution - Part 02 Assignment
 
 ## Setup
 
@@ -6,13 +6,14 @@ First create the virtual env.
 
 ```shell
 py -m venv .venv
-pip install -r requirements.txt
+pip install -r .\ass2\requirements.txt
 ```
 
-Then clone the repository and place it inside the `ass2/` directory
+Then clone the repository
 
 ```shell
-# Clone the elasticsearch repository and checkout a specific version
+# Clone the elasticsearch repository
+cd .\ass2\
 git clone https://github.com/elastic/elasticsearch.git
 ```
 
