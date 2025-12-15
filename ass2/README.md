@@ -33,11 +33,11 @@ The `file_authors` map counts the contributions for each file. The keys are the 
 
 ### Comment the two distribution visualizations.
 
-The majority of authors (51) have modified only 1 to 50 files, while most files have been modified by one (1687 files), two (1687 files) or three (631 files) authors.
+The majority of authors (16) are minor contributors who have modified only a single file. This count drops by half for authors who have modified two files. Notably, however, there are significant outliers at the top end: 3 authors have individually modified more than 1,000 files, and another 3 authors fall into the 451-500 file range.
 
-It is important to highlight that 7 authors have individually modified more than 900 files. Moreover, 16 authors have modified only 1 file.
+Regarding authorship across files, we observe that collaboration is generally low. Most of the code is maintained by very few people. Specifically 1,275 files have a single author, and 1,205 files have exactly two. From this point, the numbers decrease dramatically: only 573 files have three authors, dropping all the way down to just 8 files that have nine contributors.
 
-In conclusion, most of the files have been modified by one, two or three authors, and in general, the majority of authors have commited to only 50 files or less.
+In conclusion, the project follows a clear trend: most files are modified by only one or two authors, and conversely, the vast majority of authors limit their activity to a very small number of files.
 
 ### Visualize the author contributions (lines added + lines removed)
 
