@@ -54,6 +54,24 @@ For example, Simon Willnauer, Martijn van Groningen, and Shay Banon have contrib
 
 ## Task 2
 
+### For the package you identify as the worst in terms of knowledge loss
+
+![Distribution of Authorship Across Files](./images/task2_1.png)
+
+The worst package with multiple contributors is org/elasticsearch/common/lucene/store (151 lines). Contributors:
+
+- Simon Willnauer: 78 lines (51.7%)
+- Shay Banon: 73 lines (48.3%)
+
+### Gap Analysis
+
+The gap between Simon and Shay is small (5 lines). This means the knowledge in this package is almost evenly split between them, which is actually not bad.
+Looking at the bigger picture, both are major players in the project: Simon has worked on 7,245 files total, while Shay has touched 1,658 files. So we're talking about two experienced developers who both know this package well.
+
+### Risk Assessment
+
+Even though individual files tend to have a single owner, the overall package knowledge is well-balanced between Simon and Shay. The tiny 1.1x gap means if one of them leaves, the other already understands nearly half the code—not ideal, but definitely manageable. There's enough overlap that the team wouldn't be starting from scratch.
+
 ## Task 3
 
 ## Declaration of AI use
@@ -68,11 +86,8 @@ Generative AI was used to assist the coding of this assignment.
 
 The professional way to visualize this Power Law distribution is to use Logarithmic Bins (or "Variable Width Bins").
 
-
 ### Task 2 AI use
+
 For this task, I used AI to check and correct my code when creating the tree structure for output.json and when finding the worst package within the team. The usage was mainly inspirational and helped guide me through my coding errors. For the tree structure, since it iteratively retrieves and organizes data into different hierarchies, I made some mistakes in between, causing erroneous output for output.json. I asked Claude AI to point out where I went wrong and corrected my code afterward. For the worst package within the team, the help was more inspirational. At first, I wasn't sure what approach to take for the task, so I asked Claude AI to give me some raw ideas without providing the solution, mainly guiding me through it.
 
-
 ### Task 3 AI use
-
-
