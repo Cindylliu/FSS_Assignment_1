@@ -70,7 +70,7 @@ The professional way to visualize this Power Law distribution is to use Logarith
 
 
 ### Task 2 AI use
-
+For this task, I used AI to check and correct my code when creating the tree structure for output.json and when finding the worst package within the team. The usage was mainly inspirational and helped guide me through my coding errors. For the tree structure, since it iteratively retrieves and organizes data into different hierarchies, I made some mistakes in between, causing erroneous output for output.json. I asked Claude AI to point out where I went wrong and corrected my code afterward. For the worst package within the team, the help was more inspirational. At first, I wasn't sure what approach to take for the task, so I asked Claude AI to give me some raw ideas without providing the solution, mainly guiding me through it.
 
 
 ### Task 3 AI use
