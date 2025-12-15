@@ -56,7 +56,7 @@ For example, Simon Willnauer, Martijn van Groningen, and Shay Banon have contrib
 
 ### For the package you identify as the worst in terms of knowledge loss
 
-![Distribution of Authorship Across Files](./images/task2_1.png)
+![Identified package as the worst in terms of knowledge loss](./images/task2_1.png)
 
 The worst package with multiple contributors is org/elasticsearch/common/lucene/store (151 lines). Contributors:
 
